@@ -74,12 +74,9 @@ export const ExecutiveCard: React.FC<ExecutiveCardProps> = ({
 
           {/* Top Institutional Header Tag & Direct Contact Bar */}
           <div className="px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs font-semibold bg-[#050a12]/80 text-slate-400">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#ff7e67]" />
-              <span className="tracking-widest uppercase text-xs font-mono font-bold text-[#ff7e67]">
-                Institutional Executive Briefing
-              </span>
-            </div>
+            <span className="tracking-widest uppercase text-xs font-mono font-bold text-[#ff7e67]">
+              Institutional Executive Briefing
+            </span>
             
             {/* Direct Contact Links */}
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono">

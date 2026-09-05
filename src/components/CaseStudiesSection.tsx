@@ -37,12 +37,9 @@ export const CaseStudiesSection: React.FC = () => {
       className="relative py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto border-t border-slate-800/80"
     >
       <div className="space-y-4 max-w-3xl">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-cyan-400" />
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300 font-semibold">
-            DEPLOYMENT PROVENANCE
-          </span>
-        </div>
+        <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300 font-semibold block">
+          DEPLOYMENT PROVENANCE
+        </span>
         <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
           Selected implementation{' '}
           <span className="italic font-normal bg-clip-text text-transparent bg-gradient-to-r from-[#ff7e67] to-[#ffa190]">

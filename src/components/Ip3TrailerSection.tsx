@@ -409,9 +409,6 @@ export const Ip3TrailerSection: React.FC = () => {
           className="relative flex items-center gap-2.5 pl-3 pr-4 py-2.5 rounded-full bg-[#081220]/95 text-slate-100 border border-[#ff7e67]/60 hover:border-[#ff7e67] shadow-xl shadow-black/60 backdrop-blur-md cursor-pointer transition-all duration-200 group/btn ring-1 ring-[#ff7e67]/20"
           title="Click to open IP3 Institutional Trailer video"
         >
-          {/* Subtle Ambient Pulse Ring */}
-          <span className="absolute inset-0 rounded-full bg-[#ff7e67]/20 animate-ping opacity-30 pointer-events-none" />
-
           {/* Glowing Play Icon Circle */}
           <div className="w-7 h-7 rounded-full bg-[#ff7e67] text-white flex items-center justify-center shadow-md group-hover/btn:bg-[#e06a54] transition-colors shrink-0">
             <Play className="w-3.5 h-3.5 fill-current ml-0.5" />

@@ -6,9 +6,8 @@ import { ApproachPage } from './components/ApproachPage';
 import { FocusPage } from './components/FocusPage';
 import { ServicesPage } from './components/ServicesPage';
 import { Ip3TrailerSection } from './components/Ip3TrailerSection';
+import { SystemsArchitectureSection } from './components/SystemsArchitectureSection';
 import { PolicyShowcaseSection } from './components/PolicyShowcaseSection';
-import { FourFrontsSection } from './components/FourFrontsSection';
-import { ConveningSection } from './components/ConveningSection';
 import { Ip3PolicySection } from './components/Ip3PolicySection';
 import { TrustMatrixMarquee } from './components/TrustMatrixMarquee';
 import { TestimonialCard } from './components/TestimonialCard';
@@ -137,6 +136,9 @@ function AppContent() {
           {/* Official Institutional Trailer Section */}
           <Ip3TrailerSection />
 
+          {/* Complexity & Systems Architecture Section (Built for the complexity of now) */}
+          <SystemsArchitectureSection />
+
           {/* Policy Advisory & Action Research Showcase with Pill Slit Gallery & 3D Phone Mockup */}
           <PolicyShowcaseSection />
 
@@ -144,12 +146,6 @@ function AppContent() {
           <Ip3PolicySection
             onNavigateFocus={(sectionId) => handleNavigate('focus', sectionId)}
           />
-
-          {/* Combined Systemic Architecture & Four Fronts Matrix Section */}
-          <FourFrontsSection />
-
-          {/* Neutral Convening Ecosystem Orbital Architecture Section */}
-          <ConveningSection />
 
           {/* Trust Matrix Infinite Marquee Carousel */}
           <TrustMatrixMarquee />

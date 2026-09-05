@@ -296,7 +296,7 @@ export const OrbitDiagram: React.FC<OrbitDiagramProps> = ({
             >
               <button
                 type="button"
-                className={`group relative flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs sm:text-[13px] font-medium tracking-wide whitespace-nowrap transition-all duration-300 backdrop-blur-md cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#ff7e67] ${
+                className={`group relative flex items-center px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs sm:text-[13px] font-medium tracking-wide whitespace-nowrap transition-all duration-300 backdrop-blur-md cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#ff7e67] ${
                   isActive
                     ? 'bg-[#0b1728] text-slate-100 scale-105 shadow-lg'
                     : 'bg-[#081220]/90 text-slate-400 hover:text-slate-200 hover:scale-[1.03]'
@@ -308,17 +308,6 @@ export const OrbitDiagram: React.FC<OrbitDiagramProps> = ({
                     : undefined,
                 }}
               >
-                {/* Active Indicator Dot */}
-                <span
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    isActive ? 'scale-125' : 'opacity-60 group-hover:opacity-100'
-                  }`}
-                  style={{
-                    backgroundColor: actor.accentColor,
-                    boxShadow: isActive ? `0 0 8px ${actor.accentColor}` : 'none',
-                  }}
-                />
-
                 {/* Actor Name */}
                 <span className="font-normal text-slate-200 group-hover:text-white transition-colors">
                   {actor.name}

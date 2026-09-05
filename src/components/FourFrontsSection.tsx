@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ParallaxCardsSection } from './ParallaxCardsSection';
 import { useCMS } from '../context/CMSContext';
 
-export const FourFrontsSection: React.FC = () => {
+export interface FourFrontsSectionProps {
+  embedded?: boolean;
+}
+
+export const FourFrontsSection: React.FC<FourFrontsSectionProps> = ({ embedded = false }) => {
   const { data } = useCMS();
   const research = data.researchSection || {
     sectionTitle: "Thinking that ships.",
@@ -39,40 +43,56 @@ export const FourFrontsSection: React.FC = () => {
   }, [isPaused, fronts.length]);
 
   return (
-    <>
+    <div className="w-full space-y-8">
       {/* Section 1: Publications & Knowledge Matrix */}
-      <section id="about" className="relative bg-[#050a12] text-slate-100 py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-10 border-t border-slate-800 font-sans overflow-hidden">
+      <section
+        id="about"
+        className={`relative text-slate-100 ${
+          embedded
+            ? 'bg-transparent py-2 border-0 px-0'
+            : 'bg-[#050a12] py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-10 border-t border-slate-800'
+        } font-sans overflow-hidden`}
+      >
         {/* Subtle Ambient Background Lighting */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[750px] h-[300px] bg-[#ff7e67]/5 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-[#2dd4bf]/5 rounded-full blur-[120px] pointer-events-none" />
+        {!embedded && (
+          <>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[750px] h-[300px] bg-[#ff7e67]/5 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-[#2dd4bf]/5 rounded-full blur-[120px] pointer-events-none" />
+          </>
+        )}
 
-        <div className="max-w-7xl mx-auto space-y-10 sm:space-y-12 relative z-10">
-          {/* Separate Main Heading Block */}
-          <div id="about-main-heading" className="max-w-5xl mx-auto text-center">
-            <h1 className="text-[36px] sm:text-[44px] md:text-[52px] font-bold text-slate-100 font-serif tracking-tight leading-tight drop-shadow-md">
-              {research.sectionTitle && research.sectionTitle !== "Research and Insights" && research.sectionTitle !== "Institutional Deck"
-                ? research.sectionTitle
-                : "Thinking that ships."}
-            </h1>
-          </div>
+        <div className={`${embedded ? 'w-full' : 'max-w-7xl mx-auto'} space-y-6 sm:space-y-8 relative z-10`}>
+          {/* Main Heading Block - only if standalone */}
+          {!embedded && (
+            <div id="about-main-heading" className="max-w-5xl mx-auto text-center">
+              <h1 className="text-[36px] sm:text-[44px] md:text-[52px] font-bold text-slate-100 font-serif tracking-tight leading-tight drop-shadow-md">
+                {research.sectionTitle && research.sectionTitle !== "Research and Insights" && research.sectionTitle !== "Institutional Deck"
+                  ? research.sectionTitle
+                  : "Thinking that ships."}
+              </h1>
+            </div>
+          )}
 
           {/* Publications & Knowledge Matrix Card */}
           <div 
             id="publications-section"
-            className="w-full bg-[#081220]/90 border border-slate-800 rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden ring-1 ring-slate-800/80 backdrop-blur-sm space-y-6"
+            className={`w-full ${
+              embedded
+                ? 'bg-transparent border-0 p-0 shadow-none ring-0'
+                : 'bg-[#081220]/90 border border-slate-800 rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl ring-1 ring-slate-800/80 backdrop-blur-sm'
+            } relative overflow-hidden space-y-6`}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Subtle Ambient Accent Glow */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff7e67]/5 rounded-full blur-3xl pointer-events-none" />
+            {!embedded && (
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff7e67]/5 rounded-full blur-3xl pointer-events-none" />
+            )}
 
             <div className="flex flex-wrap items-center justify-between gap-3 relative z-10">
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff7e67]" />
-                <h3 className="font-mono text-[28px] sm:text-[34px] md:text-[40px] uppercase tracking-[0.15em] text-[#ff7e67] font-bold leading-tight">
-                  INSTITUTIONAL DECK
-                </h3>
-              </div>
+              <h3 className="font-mono text-2xl sm:text-3xl md:text-4xl uppercase tracking-[0.15em] text-[#ff7e67] font-bold leading-tight">
+                INSTITUTIONAL DECK
+              </h3>
               <span className="text-xs text-slate-400 font-mono uppercase tracking-wider hidden sm:inline">
                 Publications &amp; Knowledge Dissemination
               </span>
@@ -172,19 +192,31 @@ export const FourFrontsSection: React.FC = () => {
       </section>
 
       {/* Section 2: Publications & Reform Architecture Showcase */}
-      <section id="publications" className="relative bg-[#050a12] text-slate-100 py-8 md:py-12 px-4 sm:px-6 lg:px-10 border-t border-slate-800 font-sans overflow-hidden">
-        <div className="max-w-7xl mx-auto space-y-6">
-          <div className="w-full bg-[#081220]/90 border border-slate-800 rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden ring-1 ring-slate-800/80 backdrop-blur-sm space-y-6">
+      <section
+        id="publications"
+        className={`relative text-slate-100 ${
+          embedded
+            ? 'bg-transparent py-6 border-t border-slate-800/80 px-0'
+            : 'bg-[#050a12] py-8 md:py-12 px-4 sm:px-6 lg:px-10 border-t border-slate-800'
+        } font-sans overflow-hidden`}
+      >
+        <div className={`${embedded ? 'w-full' : 'max-w-7xl mx-auto'} space-y-6`}>
+          <div
+            className={`w-full ${
+              embedded
+                ? 'bg-transparent border-0 p-0 shadow-none ring-0'
+                : 'bg-[#081220]/90 border border-slate-800 rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl ring-1 ring-slate-800/80 backdrop-blur-sm'
+            } relative overflow-hidden space-y-6`}
+          >
             {/* Subtle Ambient Accent Glow */}
-            <div className="absolute top-0 left-0 w-96 h-96 bg-[#2dd4bf]/5 rounded-full blur-3xl pointer-events-none" />
+            {!embedded && (
+              <div className="absolute top-0 left-0 w-96 h-96 bg-[#2dd4bf]/5 rounded-full blur-3xl pointer-events-none" />
+            )}
 
             <div className="flex flex-wrap items-center justify-between gap-3 relative z-10">
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff7e67]" />
-                <h3 className="font-mono text-[28px] sm:text-[34px] md:text-[40px] uppercase tracking-[0.15em] text-[#ff7e67] font-bold leading-tight">
-                  PUBLICATIONS
-                </h3>
-              </div>
+              <h3 className="font-mono text-2xl sm:text-3xl md:text-4xl uppercase tracking-[0.15em] text-[#ff7e67] font-bold leading-tight">
+                PUBLICATIONS
+              </h3>
             </div>
 
             <div className="relative z-10">
@@ -193,7 +225,7 @@ export const FourFrontsSection: React.FC = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

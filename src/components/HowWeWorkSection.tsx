@@ -17,12 +17,9 @@ export const HowWeWorkSection: React.FC<HowWeWorkProps> = ({ onExploreArchitectu
     >
       {/* Section Header */}
       <div className="space-y-4 max-w-3xl">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-teal-400" />
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-teal-300 font-semibold">
-            IMPLEMENTATION ARCHITECTURE METHODOLOGY
-          </span>
-        </div>
+        <span className="font-mono text-xs uppercase tracking-[0.2em] text-teal-300 font-semibold block">
+          IMPLEMENTATION ARCHITECTURE METHODOLOGY
+        </span>
         <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
           How we transform policy intent into{' '}
           <span className="italic font-normal bg-clip-text text-transparent bg-gradient-to-r from-[#ff7e67] to-[#ffa190]">

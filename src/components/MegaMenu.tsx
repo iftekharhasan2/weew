@@ -147,10 +147,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ item, onClose, onNavigate })
       {/* MegaMenu Footer */}
       <div className="bg-[#081220] border-t border-slate-800 py-3 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#ff7e67]"></span>
-            <span className="font-medium text-slate-300">Not sure where to start with institutional reform?</span>
-          </div>
+          <span className="font-medium text-slate-300">Not sure where to start with institutional reform?</span>
           <a
             href="#connect"
             onClick={(e) => {

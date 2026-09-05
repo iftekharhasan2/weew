@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { SYSTEM_NODES, SystemNodeId } from '../data/systemsData';
 
 interface OrbitalSystemProps {
@@ -44,8 +44,6 @@ export const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
       }
     }
   };
-
-  const activeNodeData = hoveredNode ? SYSTEM_NODES[hoveredNode] : null;
 
   return (
     <div
@@ -126,7 +124,7 @@ export const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
               stroke="#2dd4bf"
               strokeWidth="1.5"
               strokeDasharray="3 3"
-              className="animate-pulse"
+              className="opacity-75"
             />
             {/* Ray to secondary interconnected nodes */}
             {SYSTEM_NODES[hoveredNode].connections.map((targetId) => {
@@ -166,13 +164,12 @@ export const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
           onMouseEnter={() => setHoveredNode('institutions')}
           onMouseLeave={() => setHoveredNode(null)}
           onClick={() => handleNodeClick('institutions')}
-          className={`group max-w-[130px] sm:max-w-[155px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer text-center leading-tight shadow-sm ${
+          className={`group max-w-[130px] sm:max-w-[155px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center cursor-pointer text-center leading-tight shadow-sm ${
             hoveredNode === 'institutions' || selectedNodeId === 'institutions'
               ? 'bg-[#0b1d33] border-cyan-400 text-cyan-200 ring-1 ring-cyan-400/60'
               : 'bg-[#071322]/95 border border-slate-700/80 text-slate-200 hover:text-white hover:border-slate-500 hover:bg-[#0b1b2d]'
           }`}
         >
-          <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-cyan-400 transition-transform duration-200 group-hover:scale-125" />
           <span className="leading-tight text-center">From poly-crises to poly-solutions</span>
         </motion.button>
       </div>
@@ -193,13 +190,12 @@ export const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
           onMouseEnter={() => setHoveredNode('policy')}
           onMouseLeave={() => setHoveredNode(null)}
           onClick={() => handleNodeClick('policy')}
-          className={`group max-w-[115px] sm:max-w-[140px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer text-center leading-tight shadow-sm ${
+          className={`group max-w-[115px] sm:max-w-[140px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center cursor-pointer text-center leading-tight shadow-sm ${
             hoveredNode === 'policy' || selectedNodeId === 'policy'
               ? 'bg-[#261313] border-[#ff7e67] text-[#ffa190] ring-1 ring-[#ff7e67]/60'
               : 'bg-[#071322]/95 border border-slate-700/80 text-slate-200 hover:text-white hover:border-slate-500 hover:bg-[#0b1b2d]'
           }`}
         >
-          <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-[#ff7e67] transition-transform duration-200 group-hover:scale-125" />
           <span className="leading-tight text-center">Translation not theory</span>
         </motion.button>
       </div>
@@ -220,13 +216,12 @@ export const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
           onMouseEnter={() => setHoveredNode('evidence')}
           onMouseLeave={() => setHoveredNode(null)}
           onClick={() => handleNodeClick('evidence')}
-          className={`group w-[141.675px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer text-center leading-tight shadow-sm ${
+          className={`group w-[141.675px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center cursor-pointer text-center leading-tight shadow-sm ${
             hoveredNode === 'evidence' || selectedNodeId === 'evidence'
               ? 'bg-[#0d221c] border-emerald-400 text-emerald-200 ring-1 ring-emerald-400/60'
               : 'bg-[#071322]/95 border border-slate-700/80 text-slate-200 hover:text-white hover:border-slate-500 hover:bg-[#0b1b2d]'
           }`}
         >
-          <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-400 transition-transform duration-200 group-hover:scale-125" />
           <span className="leading-tight text-center">A convenor between worlds.</span>
         </motion.button>
       </div>
@@ -247,13 +242,12 @@ export const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
           onMouseEnter={() => setHoveredNode('technology')}
           onMouseLeave={() => setHoveredNode(null)}
           onClick={() => handleNodeClick('technology')}
-          className={`group max-w-[115px] sm:max-w-[140px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer text-center leading-tight shadow-sm ${
+          className={`group max-w-[115px] sm:max-w-[140px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[9.5px] sm:text-[10.5px] font-mono tracking-tight sm:tracking-normal uppercase transition-all duration-200 flex items-center justify-center cursor-pointer text-center leading-tight shadow-sm ${
             hoveredNode === 'technology' || selectedNodeId === 'technology'
               ? 'bg-[#151532] border-indigo-400 text-indigo-200 ring-1 ring-indigo-400/60'
               : 'bg-[#071322]/95 border border-slate-700/80 text-slate-200 hover:text-white hover:border-slate-500 hover:bg-[#0b1b2d]'
           }`}
         >
-          <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-400 transition-transform duration-200 group-hover:scale-125" />
           <span className="leading-tight text-center">Thinking that ships.</span>
         </motion.button>
       </div>
@@ -284,43 +278,8 @@ export const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
               SYSTEM OVERLAPS
             </span>
           </div>
-
-          {/* Solid subtle center beacon */}
-          <div className="absolute bottom-4 flex items-center justify-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-teal-400/80" />
-          </div>
         </motion.button>
       </div>
-
-      {/* Floating Hover Context Preview Card */}
-      <AnimatePresence>
-        {activeNodeData && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.95 }}
-            transition={{ duration: 0.15 }}
-            className="absolute -bottom-14 left-1/2 -translate-x-1/2 z-30 pointer-events-none w-72 bg-[#081424]/95 backdrop-blur-md border border-teal-500/30 rounded-xl p-2.5 shadow-2xl text-center"
-          >
-            <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-white">
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: activeNodeData.color }}
-              />
-              <span>{activeNodeData.label}</span>
-              <span className="text-[10px] text-slate-400 font-normal">
-                • {activeNodeData.category}
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-300 mt-1 line-clamp-2 leading-relaxed font-light">
-              {activeNodeData.tagline}
-            </p>
-            <div className="text-[9px] font-mono text-teal-400 mt-1 uppercase tracking-wider">
-              Click node for full system architecture
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };

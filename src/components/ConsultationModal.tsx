@@ -56,12 +56,9 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-teal-400" />
-                  <span className="font-mono text-xs uppercase tracking-widest text-teal-300 font-semibold">
-                    STRATEGIC ENGAGEMENT
-                  </span>
-                </div>
+                <span className="font-mono text-xs uppercase tracking-widest text-teal-300 font-semibold block">
+                  STRATEGIC ENGAGEMENT
+                </span>
                 <h3 className="font-serif text-3xl font-bold text-white">
                   Consult our Systems Architects
                 </h3>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActorNode } from '../types';
-import { X, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { X, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface ActorDetailCardProps {
   actor: ActorNode | null;
@@ -73,8 +73,7 @@ export const ActorDetailCard: React.FC<ActorDetailCardProps> = ({
 
         {/* Convening Mechanism */}
         <div className="text-xs sm:text-[13px] text-slate-300 leading-relaxed mb-3.5 bg-[#050a12]/80 p-3 rounded-lg border border-slate-800/80">
-          <p className="font-medium text-slate-400 text-[11px] uppercase tracking-wider mb-1 flex items-center gap-1.5 font-mono">
-            <Sparkles className="w-3 h-3 text-[#2dd4bf]" />
+          <p className="font-medium text-slate-400 text-[11px] uppercase tracking-wider mb-1 font-mono">
             IP³ Convening Alignment
           </p>
           {actor.conveningMechanism}

@@ -214,7 +214,7 @@ ${steps
             onClick={onToggleTour}
             className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               isPlayingTour
-                ? 'bg-[#ff7e67]/20 text-[#ff7e67] border border-[#ff7e67]/40 animate-pulse'
+                ? 'bg-[#ff7e67]/20 text-[#ff7e67] border border-[#ff7e67]/50'
                 : 'bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/60'
             }`}
           >
@@ -290,9 +290,10 @@ ${steps
 export interface RecreationSectionProps {
   steps: MethodologyStep[];
   onSelectStep?: (step: MethodologyStep) => void;
+  embedded?: boolean;
 }
 
-export const RecreationSection: React.FC<RecreationSectionProps> = ({ steps, onSelectStep }) => {
+export const RecreationSection: React.FC<RecreationSectionProps> = ({ steps, onSelectStep, embedded = false }) => {
   const [activeFlowIndex, setActiveFlowIndex] = useState<number>(0);
 
   // Smooth continuous flow loop through all stages
@@ -315,40 +316,53 @@ export const RecreationSection: React.FC<RecreationSectionProps> = ({ steps, onS
   return (
     <div
       id="translation-section"
-      className="relative w-full text-slate-100 pt-12 sm:pt-16 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 overflow-hidden select-none bg-[#050a12]"
+      className={`relative w-full text-slate-100 ${
+        embedded ? 'pt-2 pb-4 px-0 bg-transparent' : 'pt-12 sm:pt-16 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 bg-[#050a12]'
+      } overflow-hidden select-none`}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className={embedded ? 'w-full' : 'max-w-7xl mx-auto'}>
         {/* Main Editorial Headline */}
-        <div className="space-y-4 md:space-y-6">
-          <div>
-            <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-[#ff7e67] uppercase">
-              IMPLEMENTATION FRAMEWORK
-            </span>
-          </div>
-          <h2
-            id="editorial-title-header"
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.1] tracking-tight font-serif text-slate-100"
-          >
-            Translation,{' '}
-            <span className="italic text-[#ff7e67] font-serif font-normal">
-              not theory.
-            </span>
-          </h2>
+        {!embedded ? (
+          <div className="space-y-4 md:space-y-6">
+            <div>
+              <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-[#ff7e67] uppercase">
+                IMPLEMENTATION FRAMEWORK
+              </span>
+            </div>
+            <h2
+              id="editorial-title-header"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.1] tracking-tight font-serif text-slate-100"
+            >
+              Translation,{' '}
+              <span className="italic text-[#ff7e67] font-serif font-normal">
+                not theory.
+              </span>
+            </h2>
 
-          {/* Body description */}
-          <p
-            id="main-editorial-paragraph"
-            className="text-sm sm:text-base md:text-lg leading-relaxed text-slate-300 font-normal max-w-4xl tracking-normal font-sans"
-          >
-            IP3 turns analysis into action. We convert evidence, policy intelligence, and institutional
-            diagnostics into implementation architecture — the operating models, digital platforms,
-            delivery roadmaps, financing logic, monitoring systems, and capacity pathways that make
-            reform executable.
-          </p>
-        </div>
+            {/* Body description */}
+            <p
+              id="main-editorial-paragraph"
+              className="text-sm sm:text-base md:text-lg leading-relaxed text-slate-300 font-normal max-w-4xl tracking-normal font-sans"
+            >
+              IP3 turns analysis into action. We convert evidence, policy intelligence, and institutional
+              diagnostics into implementation architecture — the operating models, digital platforms,
+              delivery roadmaps, financing logic, monitoring systems, and capacity pathways that make
+              reform executable.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <p
+              id="main-editorial-paragraph"
+              className="text-xs sm:text-sm leading-relaxed text-slate-300 font-normal max-w-3xl tracking-normal font-sans"
+            >
+              IP3 converts policy intelligence and statutory diagnostics into delivery architecture across 6 sequential operational stages. Click any node in the flow to inspect deliverables and implementation methods.
+            </p>
+          </div>
+        )}
 
         {/* Process Flow Diagram */}
-        <div className="mt-14 sm:mt-18 md:mt-24 w-full relative">
+        <div className={`${embedded ? 'mt-6 sm:mt-8' : 'mt-14 sm:mt-18 md:mt-24'} w-full relative`}>
           <div
             className="w-full overflow-x-auto pb-6 pt-[23px] h-[150px] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden no-scrollbar relative z-10"
             style={{ height: '150px', paddingTop: '23px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -784,7 +798,11 @@ export const StepDetailModal: React.FC<StepDetailModalProps> = ({
 // 5. MAIN SECTION CONTAINER
 // ==========================================
 
-export const MethodologyTranslationSection: React.FC = () => {
+export interface MethodologyTranslationSectionProps {
+  embedded?: boolean;
+}
+
+export const MethodologyTranslationSection: React.FC<MethodologyTranslationSectionProps> = ({ embedded = false }) => {
   const [selectedStep, setSelectedStep] = useState<MethodologyStep | null>(null);
   const [activePhaseFilter, setActivePhaseFilter] = useState<'all' | 'discovery' | 'architecture' | 'execution'>('all');
   const [isPlayingTour, setIsPlayingTour] = useState(false);
@@ -813,14 +831,22 @@ export const MethodologyTranslationSection: React.FC = () => {
   }, [isPlayingTour, steps]);
 
   return (
-    <section id="translation-architecture-suite" className="relative w-full bg-[#050a12] border-t border-slate-800 overflow-hidden">
+    <section
+      id="translation-architecture-suite"
+      className={`relative w-full ${
+        embedded ? 'bg-transparent border-0' : 'bg-[#050a12] border-t border-slate-800'
+      } overflow-hidden`}
+    >
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#ff7e67]/5 rounded-full blur-[140px] pointer-events-none" />
+      {!embedded && (
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#ff7e67]/5 rounded-full blur-[140px] pointer-events-none" />
+      )}
 
       {/* Main Recreation Editorial + Flow Visualizer */}
       <RecreationSection
         steps={steps}
         onSelectStep={(st) => setSelectedStep(st)}
+        embedded={embedded}
       />
 
       {/* Step Detail Deep Inspection Modal */}

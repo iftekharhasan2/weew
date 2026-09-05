@@ -533,11 +533,8 @@ export const ParallaxCardsSection: React.FC<ParallaxCardsSectionProps> = ({ embe
           {/* Pagination Controls */}
           {totalPages > 1 && (
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-6 py-3.5 bg-[#081220] border border-slate-800 rounded-2xl shadow-md">
-              <div className="text-xs text-slate-400 font-medium font-sans flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#ff7e67]" />
-                <span>
-                  Showing cards <span className="font-bold text-slate-100">{(currentPage - 1) * cardsPerPage + 1}</span> - <span className="font-bold text-slate-100">{Math.min(currentPage * cardsPerPage, filteredCards.length)}</span> of <span className="font-bold text-slate-100">{filteredCards.length}</span> (Page {currentPage} of {totalPages})
-                </span>
+              <div className="text-xs text-slate-400 font-medium font-sans">
+                Showing cards <span className="font-bold text-slate-100">{(currentPage - 1) * cardsPerPage + 1}</span> - <span className="font-bold text-slate-100">{Math.min(currentPage * cardsPerPage, filteredCards.length)}</span> of <span className="font-bold text-slate-100">{filteredCards.length}</span> (Page {currentPage} of {totalPages})
               </div>
 
               <div className="flex items-center gap-2.5">

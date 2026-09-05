@@ -26,8 +26,7 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activeTab, setActive
             </a>
           </div>
           <div className="flex items-center gap-3 text-slate-400">
-            <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-[#ff7e67] animate-pulse"></span>
+            <span>
               Office: {ip3OfficeInfo.address.area}, {ip3OfficeInfo.address.city}
             </span>
           </div>

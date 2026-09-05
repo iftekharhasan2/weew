@@ -35,12 +35,9 @@ export const SystemsOverviewGrid: React.FC<SystemsOverviewGridProps> = ({ onSele
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-3 max-w-2xl">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#ff7e67]" />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff7e67] font-semibold">
-              COMPLETE SYSTEM SPECTRUM
-            </span>
-          </div>
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff7e67] font-semibold block">
+            COMPLETE SYSTEM SPECTRUM
+          </span>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
             Integrated architecture across{' '}
             <span className="italic font-normal bg-clip-text text-transparent bg-gradient-to-r from-[#ff7e67] to-[#ffa190]">

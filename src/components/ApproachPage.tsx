@@ -543,8 +543,7 @@ export const ApproachPage: React.FC<ApproachPageProps> = ({
                           </div>
                         </div>
 
-                        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold tracking-wider uppercase bg-[#ff7e67]/20 text-[#ff7e67] border border-[#ff7e67]/40">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#ff7e67] animate-ping" />
+                        <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold tracking-wider uppercase bg-[#ff7e67]/20 text-[#ff7e67] border border-[#ff7e67]/40">
                           <span>Interactive Focus</span>
                         </div>
                       </div>

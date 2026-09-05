@@ -482,7 +482,7 @@ export const InteractiveTrailerSection: React.FC = () => {
                 {!isPlaying && (
                   <div className="absolute inset-0 bg-[#081220]/60 backdrop-blur-[2px] flex flex-col items-center justify-center p-6 text-center z-10 animate-in fade-in duration-200">
                     <div className="relative mb-4">
-                      <div className="absolute -inset-4 bg-[#ff7e67]/30 rounded-full blur-xl animate-pulse" />
+                      <div className="absolute -inset-4 bg-[#ff7e67]/20 rounded-full blur-xl" />
                       <button
                         onClick={togglePlay}
                         className="relative w-20 h-20 rounded-full bg-[#ff7e67] hover:bg-[#e06a54] text-slate-900 flex items-center justify-center shadow-2xl transition-transform hover:scale-110 cursor-pointer"
@@ -502,8 +502,7 @@ export const InteractiveTrailerSection: React.FC = () => {
 
                 {/* Active Scene Watermark / Chapter Tag */}
                 <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-lg bg-[#081220]/90 backdrop-blur-md border border-slate-800 text-[11px] font-mono font-bold text-[#ff7e67] flex items-center gap-1.5 shadow-lg">
-                    <span className="w-2 h-2 rounded-full bg-[#ff7e67] animate-ping" />
+                  <span className="px-3 py-1 rounded-lg bg-[#081220]/90 backdrop-blur-md border border-slate-800 text-[11px] font-mono font-bold text-[#ff7e67] flex items-center shadow-lg">
                     SCENE {currentChapter.number} // {currentChapter.title.toUpperCase()}
                   </span>
                   <span className="px-2.5 py-1 rounded-lg bg-[#081220]/80 backdrop-blur-md border border-slate-800 text-[10px] font-mono text-slate-400 hidden sm:inline">

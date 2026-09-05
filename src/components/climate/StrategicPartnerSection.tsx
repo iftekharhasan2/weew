@@ -68,7 +68,6 @@ export default function StrategicPartnerSection({ onOpenContact, onOpenVideo }: 
                   <span className="px-3 py-1 rounded bg-[#0E1A22]/80 backdrop-blur-md border border-[#3C3F45] text-[11px] font-semibold uppercase tracking-wider text-[#F59E0B]">
                     Featured Documentary
                   </span>
-                  <div className="w-3 h-3 rounded-full bg-[#EF715A] animate-ping" />
                 </div>
 
                 <div className="text-center my-auto">

@@ -25,7 +25,7 @@ export const EightSystemsSection: React.FC = () => {
       setHoveredSystemId(null);
     } else {
       setSelectedSystemId(system.id);
-      setHoveredSystemId(system.id);
+      setHoveredSystemId(null);
     }
   };
 

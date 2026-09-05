@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Network, Wrench, Sparkles, Users, ArrowUp, X } from 'lucide-react';
+import { Network, Wrench, Sparkles, Users, X } from 'lucide-react';
 import { EightSystemsSection } from './EightSystemsSection';
+import { MethodologyTranslationSection } from './MethodologyTranslationSection';
+import { ProjectsSection } from './ProjectsSection';
+import { FourFrontsSection } from './FourFrontsSection';
+import { ConveningSection } from './ConveningSection';
 
 export interface StoryTheme {
   id: string;
@@ -176,20 +180,19 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
   const activeIndex =
     controlledThemeIndex !== undefined ? controlledThemeIndex : internalThemeIndex;
 
+  const rightContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (rightContentRef.current) {
+      rightContentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [activeIndex]);
+
   const handleSelectTheme = (index: number) => {
     if (onThemeChange) {
       onThemeChange(index);
     } else {
       setInternalThemeIndex(index);
-    }
-  };
-
-  const handleReturnToTop = () => {
-    const el = document.getElementById('orbital-system-container') || document.getElementById('systems-hero');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -227,8 +230,8 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
   return (
     <section
       id="polysolutions-section"
-      className={`relative w-full bg-[#050a12] transition-all duration-300 overflow-hidden border-t-0 select-text ${
-        isOpen ? 'pt-10 sm:pt-16 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8' : 'p-0 h-0 invisible pointer-events-none'
+      className={`relative w-full bg-[#050a12] transition-all duration-300 border-t-0 select-text ${
+        isOpen ? 'pt-10 sm:pt-16 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8' : 'p-0 h-0 invisible pointer-events-none overflow-hidden'
       }`}
     >
       {/* Background Ambient Glow Gradients */}
@@ -250,43 +253,28 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.98 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="w-full bg-[#0a121e] border border-slate-800/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col relative overflow-hidden shadow-2xl space-y-8 sm:space-y-10"
+              className="w-full bg-[#0a121e] border border-slate-800/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col relative shadow-2xl space-y-8 sm:space-y-10"
             >
               {/* Active Story Scene Card (Thematic Horizon & 3 Strategy Pillars) */}
               <div id="active-story-scene-card" className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
                 {/* Left Side: Navigation & Theme Selector Column */}
-                <div className="lg:col-span-4 xl:col-span-3.5 flex flex-col gap-3.5 pb-6 lg:pb-0 lg:pr-6 border-b lg:border-b-0 lg:border-r border-slate-800/80 w-full shrink-0">
+                <div className="lg:col-span-4 xl:col-span-3.5 lg:sticky lg:top-24 lg:self-start flex flex-col gap-3.5 pb-6 lg:pb-0 lg:pr-6 border-b lg:border-b-0 lg:border-r border-slate-800/80 w-full shrink-0 z-20">
                   {/* Top Utility Row */}
                   <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#ea6955] animate-pulse" />
-                      <span className="text-[11px] text-slate-400 font-mono font-medium tracking-wider uppercase">
-                        Thematic Horizons
-                      </span>
-                    </div>
+                    <span className="text-xs text-slate-300 font-medium tracking-wide uppercase">
+                      Thematic Horizons
+                    </span>
 
-                    <div className="flex items-center gap-2">
+                    {onClose && (
                       <button
-                        id="return-to-top-btn"
-                        onClick={handleReturnToTop}
-                        className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-100 transition-colors font-mono cursor-pointer px-2 py-1 rounded-lg hover:bg-slate-800/50"
-                        title="Back to Orbital Map"
+                        id="close-story-btn"
+                        onClick={onClose}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer border border-slate-700/60"
+                        title="Close Master View"
                       >
-                        <ArrowUp className="w-3.5 h-3.5" />
-                        <span className="text-[11px]">Map</span>
+                        <X className="w-3.5 h-3.5" />
                       </button>
-
-                      {onClose && (
-                        <button
-                          id="close-story-btn"
-                          onClick={onClose}
-                          className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer border border-slate-700/60"
-                          title="Close Master View"
-                        >
-                          <X className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                    </div>
+                    )}
                   </div>
 
                   {/* Vertical Theme Selector Stack */}
@@ -298,31 +286,13 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
                           key={theme.id}
                           id={`btn-theme-${idx + 1}`}
                           onClick={() => handleSelectTheme(idx)}
-                          className={`w-full text-left px-3.5 py-3 rounded-xl text-xs font-mono font-medium tracking-wide transition-all duration-200 cursor-pointer flex flex-col gap-1.5 border ${
+                          className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-200 cursor-pointer border ${
                             isActive
-                              ? 'bg-[#ea6955] text-slate-950 font-bold border-[#ea6955] shadow-lg shadow-[#ea6955]/15'
-                              : 'bg-[#0e1726]/80 hover:bg-[#152338] text-slate-300 border-slate-800/80 hover:border-slate-700 hover:text-white'
+                              ? 'bg-[#ea6955] text-slate-950 font-bold border-[#ea6955] shadow-md shadow-[#ea6955]/15'
+                              : 'bg-[#0e1726]/80 hover:bg-[#152338] text-slate-300 border-slate-800/80 hover:border-slate-700 hover:text-white font-medium'
                           }`}
                         >
-                          <div className="flex items-center justify-between w-full">
-                            <span
-                              className={`text-[10px] font-mono font-extrabold uppercase px-1.5 py-0.5 rounded ${
-                                isActive ? 'bg-black/20 text-slate-950' : 'bg-slate-800/60 text-slate-400'
-                              }`}
-                            >
-                              {theme.themeNumber}
-                            </span>
-                            {isActive ? (
-                              <span className="text-[9px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-black/20 text-slate-950">
-                                ACTIVE
-                              </span>
-                            ) : (
-                              <span className="text-[10px] font-mono text-slate-500 uppercase">
-                                VIEW
-                              </span>
-                            )}
-                          </div>
-                          <span className="font-sans text-xs sm:text-sm font-semibold tracking-normal leading-snug">
+                          <span className="text-xs sm:text-sm leading-snug block">
                             {theme.title}
                           </span>
                         </button>
@@ -332,7 +302,11 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
                 </div>
 
                 {/* Right Side: Active Theme Scene Content */}
-                <div className="lg:col-span-8 xl:col-span-8.5 w-full min-w-0">
+                <div
+                  id="active-theme-scroll-pane"
+                  ref={rightContentRef}
+                  className="lg:col-span-8 xl:col-span-8.5 w-full min-w-0 lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:pr-3.5 [scrollbar-width:thin] [scrollbar-color:rgba(100,116,139,0.35)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-700/60 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-500/80"
+                >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeTheme.id}
@@ -343,14 +317,8 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
                       className="flex flex-col justify-between h-full"
                     >
                       <div>
-                        {/* Scene Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff7e67]/15 border border-[#ff7e67]/30 text-[#ff7e67] font-mono text-[11px] font-bold tracking-wider uppercase">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#ff7e67]" />
-                          <span>{activeTheme.badge}</span>
-                        </div>
-
                         {/* Headline */}
-                        <h3 className="font-serif text-2xl sm:text-3xl lg:text-[38px] font-bold text-slate-100 tracking-tight leading-[1.18] mt-4">
+                        <h3 className="font-serif text-2xl sm:text-3xl lg:text-[38px] font-bold text-slate-100 tracking-tight leading-[1.18]">
                           {activeTheme.headline}
                         </h3>
 
@@ -363,38 +331,59 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
                       {/* Divider Line */}
                       <div className="w-full border-t border-slate-800/80 my-6" />
 
-                      {/* 3 Pillars / Cards */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 lg:gap-4 items-stretch">
-                        {activeTheme.cards.map((card, cIdx) => (
-                          <div
-                            key={cIdx}
-                            className="bg-[#0e1828]/70 hover:bg-[#111e32]/80 border border-slate-800/80 rounded-xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-start group"
-                          >
-                            <span
-                              className={`font-mono text-xs font-bold tracking-wider ${card.tagColor} mb-2 block`}
+                      {/* 3 Pillars / Cards (shown for themes with cards, omitted in Themes 02, 03 & 04) */}
+                      {activeTheme.id !== 'translation' && activeTheme.id !== 'thinking' && activeTheme.id !== 'convener' && activeTheme.cards && activeTheme.cards.length > 0 && (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 lg:gap-4 items-stretch">
+                          {activeTheme.cards.map((card, cIdx) => (
+                            <div
+                              key={cIdx}
+                              className="bg-[#0e1828]/70 hover:bg-[#111e32]/80 border border-slate-800/80 rounded-xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-start group"
                             >
-                              {card.tag}
-                            </span>
-                            <h4 className="font-sans text-slate-100 font-bold text-sm sm:text-base mb-1.5 leading-snug group-hover:text-white">
-                              {card.title}
-                            </h4>
-                            <p className="text-slate-400 text-xs leading-relaxed font-light">
-                              {card.description}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
+                              <span
+                                className={`font-mono text-xs font-bold tracking-wider ${card.tagColor} mb-2 block`}
+                              >
+                                {card.tag}
+                              </span>
+                              <h4 className="font-sans text-slate-100 font-bold text-sm sm:text-base mb-1.5 leading-snug group-hover:text-white">
+                                {card.title}
+                              </h4>
+                              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                                {card.description}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
                       {/* Theme 1 Specific: Eight Systems Architecture */}
                       {activeTheme.id === 'polysolutions' && (
-                        <div className="mt-8 pt-8 border-t border-slate-800/80 flex flex-col space-y-6">
-                          <div className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-[#ff7e67]/10 border border-[#ff7e67]/20">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#ff7e67] animate-pulse" />
-                            <span className="text-[11px] font-mono text-[#ff7e67] uppercase tracking-wider font-semibold">
-                              Operationalized Across 8 Interconnected Realities
-                            </span>
-                          </div>
+                        <div className="mt-8 pt-8 border-t border-slate-800/80 flex flex-col space-y-4">
+                          <span className="text-xs font-mono text-[#ff7e67] uppercase tracking-wider font-semibold">
+                            Operationalized Across 8 Interconnected Realities
+                          </span>
                           <EightSystemsSection />
+                        </div>
+                      )}
+
+                      {/* Theme 2 Specific: Translation, Not Theory Implementation Framework & Action Research Projects */}
+                      {activeTheme.id === 'translation' && (
+                        <div className="w-full space-y-6">
+                          <MethodologyTranslationSection embedded />
+                          <ProjectsSection embedded />
+                        </div>
+                      )}
+
+                      {/* Theme 3 Specific: Thinking that Shifts - Institutional Deck & Publications */}
+                      {activeTheme.id === 'thinking' && (
+                        <div className="w-full space-y-6">
+                          <FourFrontsSection embedded />
+                        </div>
+                      )}
+
+                      {/* Theme 4 Specific: A Convener Between Worlds - Orbital Architecture */}
+                      {activeTheme.id === 'convener' && (
+                        <div className="w-full space-y-6">
+                          <ConveningSection embedded />
                         </div>
                       )}
                     </motion.div>

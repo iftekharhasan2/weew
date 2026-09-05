@@ -1,6 +1,6 @@
 import { useCMS } from '../context/CMSContext';
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, MessageSquare, Sparkles } from 'lucide-react';
+import { ChevronDown, HelpCircle, MessageSquare } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
   const { data } = useCMS();
@@ -15,8 +15,7 @@ export const FaqSection: React.FC = () => {
     <div className="my-10 bg-[#081220] rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl font-sans">
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#ff7e67]/10 text-[#ff7e67] text-[11px] font-mono font-bold tracking-wider uppercase mb-2 border border-[#ff7e67]/30">
-            <Sparkles className="w-3 h-3 text-[#ff7e67]" />
+          <div className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#ff7e67]/10 text-[#ff7e67] text-[11px] font-mono font-bold tracking-wider uppercase mb-2 border border-[#ff7e67]/30">
             Advisory Clarity
           </div>
           <h3 className="text-2xl font-bold tracking-tight text-slate-100">

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/admin/(.*)", "destination": "/admin.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+
+  "headers": [
+    {
+      "source": "/admin(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

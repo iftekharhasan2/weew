@@ -12,6 +12,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-emerald-400',
     borderClass: 'border-emerald-500/40',
     category: 'Biophysical Boundaries',
+    imageUrl: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=600&q=80',
     summary: 'Decarbonization, planetary boundaries, natural capital valuation, and climate-resilient infrastructure.',
     coreMandate: 'Aligning macroeconomic policy and infrastructure investment with ecological limits and net-zero trajectories.',
     keyDrivers: [
@@ -85,6 +86,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-blue-400',
     borderClass: 'border-blue-500/40',
     category: 'Capability Building',
+    imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
     summary: 'Lifelong learning architectures, cognitive resilience, foundational literacy, and skills for modern economies.',
     coreMandate: 'Cultivating adaptable human capabilities capable of navigating exponential technological and ecological shifts.',
     keyDrivers: [
@@ -149,6 +151,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-teal-400',
     borderClass: 'border-teal-500/40',
     category: 'Human Resilience',
+    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80',
     summary: 'Universal healthcare delivery, preventive wellness, dynamic social safety nets, and demographic aging support.',
     coreMandate: 'Ensuring universal baseline security against idiosyncratic and systemic health and economic shocks.',
     keyDrivers: [
@@ -204,6 +207,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-sky-400',
     borderClass: 'border-sky-500/40',
     category: 'Digital Commons',
+    imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80',
     summary: 'Digital public infrastructure (DPI), data sovereignty, open data protocols, and citizen privacy charters.',
     coreMandate: 'Architecting inclusive, secure, and sovereign digital foundations for societal transactions and democratic agency.',
     keyDrivers: [
@@ -259,6 +263,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-orange-400',
     borderClass: 'border-orange-500/40',
     category: 'Governance & State Capacity',
+    imageUrl: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=600&q=80',
     summary: 'Public sector agility, anti-corruption safeguards, rule of law, participatory budgeting, and strategic foresight.',
     coreMandate: 'Strengthening state capability, democratic legitimacy, and institutional trust to execute complex structural reforms.',
     keyDrivers: [
@@ -314,6 +319,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-amber-400',
     borderClass: 'border-amber-500/40',
     category: 'Macroeconomic Transformation',
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
     summary: 'Productive diversification, fiscal sustainability, resilient supply chains, and equitable wealth generation.',
     coreMandate: 'Restructuring industrial architecture, capital flows, and labor markets toward durable, inclusive prosperity.',
     keyDrivers: [
@@ -369,6 +375,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-emerald-400',
     borderClass: 'border-emerald-500/40',
     category: 'Resource Stewardship',
+    imageUrl: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80',
     summary: 'Material circularity, lifecycle sustainability disclosures, regenerative supply chains, and zero-waste logistics.',
     coreMandate: 'Decoupling economic value creation from virgin natural resource consumption through closed-loop loops.',
     keyDrivers: [
@@ -424,6 +431,7 @@ export const SYSTEMS_DATA: SystemItem[] = [
     dotClass: 'bg-purple-400',
     borderClass: 'border-purple-500/40',
     category: 'Cognitive Infrastructure',
+    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
     summary: 'Autonomous public service optimization, algorithmic accountability, civic co-pilots, and safety assurance.',
     coreMandate: 'Directing artificial intelligence safely and equitably to multiply the problem-solving capacity of public institutions.',
     keyDrivers: [

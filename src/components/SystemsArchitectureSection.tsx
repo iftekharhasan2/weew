@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowUpRight, MessageSquare } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { OrbitalSystem } from './OrbitalSystem';
 import { NodeInspectorModal } from './NodeInspectorModal';
 import { ConsultationModal } from './ConsultationModal';
@@ -24,63 +24,39 @@ export const SystemsArchitectureSection: React.FC = () => {
 
   const handleSelectNode = (nodeId: SystemNodeId) => {
     if (nodeId === 'institutions') {
-      if (isStoryOpen && selectedStoryNodeId === 'institutions') {
-        setIsStoryOpen(false);
-        setSelectedStoryNodeId(null);
-        return;
-      }
       setSelectedStoryNodeId('institutions');
       setActiveStoryThemeIndex(0);
-      setIsStoryOpen(true);
       setTimeout(() => {
         const el = document.getElementById('polysolutions-master-card') || document.getElementById('polysolutions-section');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      }, 50);
       return;
     }
     if (nodeId === 'policy') {
-      if (isStoryOpen && selectedStoryNodeId === 'policy') {
-        setIsStoryOpen(false);
-        setSelectedStoryNodeId(null);
-        return;
-      }
       setSelectedStoryNodeId('policy');
       setActiveStoryThemeIndex(1);
-      setIsStoryOpen(true);
       setTimeout(() => {
         const el = document.getElementById('polysolutions-master-card') || document.getElementById('polysolutions-section');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      }, 50);
       return;
     }
     if (nodeId === 'technology') {
-      if (isStoryOpen && selectedStoryNodeId === 'technology') {
-        setIsStoryOpen(false);
-        setSelectedStoryNodeId(null);
-        return;
-      }
       setSelectedStoryNodeId('technology');
       setActiveStoryThemeIndex(2);
-      setIsStoryOpen(true);
       setTimeout(() => {
         const el = document.getElementById('polysolutions-master-card') || document.getElementById('polysolutions-section');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      }, 50);
       return;
     }
     if (nodeId === 'evidence') {
-      if (isStoryOpen && selectedStoryNodeId === 'evidence') {
-        setIsStoryOpen(false);
-        setSelectedStoryNodeId(null);
-        return;
-      }
       setSelectedStoryNodeId('evidence');
       setActiveStoryThemeIndex(3);
-      setIsStoryOpen(true);
       setTimeout(() => {
         const el = document.getElementById('polysolutions-master-card') || document.getElementById('polysolutions-section');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      }, 50);
       return;
     }
     setInspectedNodeId(nodeId);
@@ -88,7 +64,6 @@ export const SystemsArchitectureSection: React.FC = () => {
 
   const handleThemeChange = (index: number) => {
     setActiveStoryThemeIndex(index);
-    setIsStoryOpen(true);
     if (themeNodeMap[index]) {
       setSelectedStoryNodeId(themeNodeMap[index]);
     }
@@ -116,11 +91,11 @@ export const SystemsArchitectureSection: React.FC = () => {
       {/* Hero Systems Architecture & Orbital Section */}
       <section
         id="systems-hero"
-        className="relative w-full min-h-[90vh] flex flex-col justify-center py-16 sm:py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto z-10"
+        className="relative w-full min-h-[90vh] flex flex-col justify-center py-16 sm:py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto z-10 bg-[#050a12]"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center my-auto py-6">
-          {/* Left Column: Headline & Narrative */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
+        <div className="flex flex-col items-center w-full my-auto py-4">
+          {/* Header Block: Headline & Narrative */}
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-4 mb-8 sm:mb-12">
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -138,14 +113,11 @@ export const SystemsArchitectureSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.2rem] font-bold text-white tracking-tight leading-[1.04]"
+              className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold text-white tracking-normal sm:tracking-tight leading-snug sm:leading-[1.2] md:leading-[1.25] py-1.5 overflow-visible"
             >
-              Built for the{' '}
-              <span className="block italic font-normal text-[#ff7e67] pr-2">
-                complexity
-              </span>
-              <span className="block italic font-normal text-[#ff7e67]">
-                of now.
+              <span>Built for the</span>{' '}
+              <span className="italic font-normal text-[#ff7e67] tracking-normal inline-block">
+                complexity of now.
               </span>
             </motion.h2>
 
@@ -154,7 +126,7 @@ export const SystemsArchitectureSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl pt-1 font-normal"
+              className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl pt-1 font-normal"
             >
               IP3 Consulting Limited translates policy intelligence, data, and digital
               transformation into implementation architecture for resilient institutions,
@@ -167,7 +139,7 @@ export const SystemsArchitectureSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-4 pt-4"
+              className="flex flex-wrap items-center justify-center gap-4 pt-2"
             >
               <button
                 id="hero-explore-systems-btn"
@@ -185,25 +157,16 @@ export const SystemsArchitectureSection: React.FC = () => {
                 <span>EXPLORE OUR SYSTEMS</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
-
-              <button
-                id="hero-consult-btn"
-                onClick={() => handleOpenConsultation('core')}
-                className="group inline-flex items-center gap-2.5 bg-[#0b1728]/80 hover:bg-[#112239] active:bg-[#07111e] border border-slate-700/80 hover:border-slate-500 text-slate-200 hover:text-white font-mono font-semibold text-xs sm:text-[13px] tracking-wider uppercase px-7 py-3.5 rounded-full transition-all duration-200 backdrop-blur-sm cursor-pointer"
-              >
-                <span>STRATEGIC INQUIRY</span>
-                <MessageSquare className="w-4 h-4 text-slate-400 group-hover:text-white" />
-              </button>
             </motion.div>
           </div>
 
-          {/* Right Column: Orbital Visual */}
+          {/* Full-width Diagram: IP3 Center Hub + 4 Connected Cards (image.png layout) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="lg:col-span-5 flex items-center justify-center relative"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full flex items-center justify-center relative"
           >
             <OrbitalSystem
               onSelectNode={handleSelectNode}

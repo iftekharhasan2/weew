@@ -87,6 +87,25 @@ export const SystemDetailPanel: React.FC<SystemDetailPanelProps> = ({
           {/* Core Mandate Section */}
           <div className="pt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-4">
+              {system.imageUrl && (
+                <div className="relative w-full h-44 sm:h-52 rounded-xl overflow-hidden border border-slate-800/80 bg-slate-950">
+                  <img
+                    src={system.imageUrl}
+                    alt={system.name}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#090f1d] via-[#090f1d]/40 to-transparent" />
+                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                    <span
+                      className="px-2.5 py-1 rounded-full text-xs font-medium tracking-wide bg-black/60 backdrop-blur-md border border-white/10 text-white"
+                    >
+                      {system.category}
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <div className="p-6 rounded-xl bg-slate-900/60 border border-slate-800/80 space-y-3.5">
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
                   <Compass className="w-4 h-4 text-[#ff7e67]" />

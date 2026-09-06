@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Network, Wrench, Sparkles, Users, X } from 'lucide-react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { EightSystemsSection } from './EightSystemsSection';
 import { MethodologyTranslationSection } from './MethodologyTranslationSection';
 import { ProjectsSection } from './ProjectsSection';
 import { FourFrontsSection } from './FourFrontsSection';
 import { ConveningSection } from './ConveningSection';
+import { TrustMatrixMarquee } from './TrustMatrixMarquee';
+import { TestimonialCard } from './TestimonialCard';
 
 export interface StoryTheme {
   id: string;
@@ -180,219 +180,224 @@ export const PolySolutionsSection: React.FC<PolySolutionsSectionProps> = ({
   const activeIndex =
     controlledThemeIndex !== undefined ? controlledThemeIndex : internalThemeIndex;
 
-  const rightContentRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const masterCardRef = useRef<HTMLDivElement>(null);
+  const isProgrammaticScrollRef = useRef<boolean>(false);
 
+  // Sync with external controlled index
   useEffect(() => {
-    if (rightContentRef.current) {
-      rightContentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    if (controlledThemeIndex !== undefined) {
+      setInternalThemeIndex(controlledThemeIndex);
+      const targetEl = document.getElementById(`theme-horizon-${controlledThemeIndex + 1}`);
+      if (targetEl) {
+        isProgrammaticScrollRef.current = true;
+        const topOffset = 85;
+        const elementPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - topOffset,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isProgrammaticScrollRef.current = false;
+        }, 800);
+      }
     }
-  }, [activeIndex]);
+  }, [controlledThemeIndex]);
 
-  const handleSelectTheme = (index: number) => {
-    if (onThemeChange) {
-      onThemeChange(index);
-    } else {
-      setInternalThemeIndex(index);
-    }
-  };
+  // Observer to track which theme is currently in the viewport as user scrolls the page
+  useEffect(() => {
+    const horizonElements = STORY_THEMES.map((_, idx) =>
+      document.getElementById(`theme-horizon-${idx + 1}`)
+    ).filter(Boolean) as HTMLElement[];
 
-  const activeTheme = STORY_THEMES[activeIndex] || STORY_THEMES[0];
+    if (horizonElements.length === 0) return;
 
-  const renderThemeIcon = (icon: StoryTheme['icon'], isActive: boolean) => {
-    if (icon === 'network') {
-      return (
-        <Network
-          className={`w-4 h-4 ${isActive ? 'text-slate-950' : 'text-slate-400 group-hover:text-white'}`}
-        />
-      );
-    }
-    if (icon === 'wrench') {
-      return (
-        <Wrench
-          className={`w-4 h-4 ${isActive ? 'text-slate-950' : 'text-slate-400 group-hover:text-white'}`}
-        />
-      );
-    }
-    if (icon === 'sparkles') {
-      return (
-        <Sparkles
-          className={`w-4 h-4 ${isActive ? 'text-slate-950' : 'text-slate-400 group-hover:text-white'}`}
-        />
-      );
-    }
-    return (
-      <Users
-        className={`w-4 h-4 ${isActive ? 'text-slate-950' : 'text-slate-400 group-hover:text-white'}`}
-      />
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isProgrammaticScrollRef.current) return;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const indexAttr = entry.target.getAttribute('data-theme-index');
+            if (indexAttr !== null) {
+              const idx = parseInt(indexAttr, 10);
+              setInternalThemeIndex(idx);
+              if (onThemeChange) {
+                onThemeChange(idx);
+              }
+            }
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '-15% 0px -55% 0px',
+        threshold: 0.05,
+      }
     );
-  };
+
+    horizonElements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [onThemeChange]);
+
+  const handleSelectTheme = useCallback(
+    (index: number) => {
+      setInternalThemeIndex(index);
+      if (onThemeChange) {
+        onThemeChange(index);
+      }
+      const targetEl = document.getElementById(`theme-horizon-${index + 1}`);
+      if (targetEl) {
+        isProgrammaticScrollRef.current = true;
+        const topOffset = 85;
+        const elementPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - topOffset,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isProgrammaticScrollRef.current = false;
+        }, 800);
+      }
+    },
+    [onThemeChange]
+  );
 
   return (
     <section
       id="polysolutions-section"
-      className={`relative w-full bg-[#050a12] transition-all duration-300 border-t-0 select-text ${
-        isOpen ? 'pt-10 sm:pt-16 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8' : 'p-0 h-0 invisible pointer-events-none overflow-hidden'
-      }`}
+      ref={sectionRef}
+      className="relative w-full bg-[#050a12] pt-8 sm:pt-14 pb-20 sm:pb-32 px-4 sm:px-6 lg:px-10 border-t-0 select-text"
     >
       {/* Background Ambient Glow Gradients */}
-      {isOpen && (
-        <>
-          <div className="absolute top-1/6 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[#ff7e67]/5 rounded-full blur-[150px] pointer-events-none" />
-          <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#2dd4bf]/5 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-[#ff7e67]/5 rounded-full blur-[140px] pointer-events-none" />
-        </>
-      )}
+      <div className="absolute top-1/6 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[#ff7e67]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#2dd4bf]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-[#ff7e67]/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="w-full relative z-10">
-        {/* Unified Poly-Solutions & Eight Systems Master Architecture Card (Shown only when button is clicked) */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              id="polysolutions-master-card"
-              initial={{ opacity: 0, y: -24, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="w-full bg-[#0a121e] border border-slate-800/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col relative shadow-2xl space-y-8 sm:space-y-10"
-            >
-              {/* Active Story Scene Card (Thematic Horizon & 3 Strategy Pillars) */}
-              <div id="active-story-scene-card" className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-                {/* Left Side: Navigation & Theme Selector Column */}
-                <div className="lg:col-span-4 xl:col-span-3.5 lg:sticky lg:top-24 lg:self-start flex flex-col gap-3.5 pb-6 lg:pb-0 lg:pr-6 border-b lg:border-b-0 lg:border-r border-slate-800/80 w-full shrink-0 z-20">
-                  {/* Top Utility Row */}
-                  <div className="flex items-center justify-between w-full">
-                    <span className="text-xs text-slate-300 font-medium tracking-wide uppercase">
-                      Thematic Horizons
-                    </span>
+        {/* Full-width Unified Poly-Solutions Section Container - Seamlessly Part of the Section */}
+        <div
+          id="polysolutions-master-card"
+          ref={masterCardRef}
+          className="container-fluid w-full max-w-full bg-transparent border-0 rounded-none p-0 flex flex-col relative shadow-none"
+        >
+          {/* Active Story Layout: Left Sticky Navigation & Natural Page Content */}
+          <div
+            id="active-story-scene-card"
+            className="w-full grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8 lg:gap-12 items-start"
+          >
+            {/* Left Column: Sticky Navigation & Thematic Horizon Selector */}
+            <div className="w-full lg:w-[220px] lg:sticky lg:top-24 lg:self-start flex flex-col gap-3.5 pb-6 lg:pb-0 pr-0 lg:pr-6 border-b lg:border-b-0 lg:border-r border-slate-800/80 shrink-0 z-20">
+              {/* Top Utility Indicator */}
+              <div className="flex items-center justify-between w-full">
+                <span className="text-xs text-slate-300 font-medium tracking-wide uppercase">
+                  Thematic Horizons
+                </span>
+                <span className="text-[11px] font-mono text-[#ff7e67] font-semibold">
+                  {activeIndex + 1} / 4
+                </span>
+              </div>
 
-                    {onClose && (
-                      <button
-                        id="close-story-btn"
-                        onClick={onClose}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer border border-slate-700/60"
-                        title="Close Master View"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
+              {/* Vertical Horizon Selector Stack */}
+              <div className="flex flex-col gap-2 w-full mt-1">
+                {STORY_THEMES.map((theme, idx) => {
+                  const isActive = activeIndex === idx;
 
-                  {/* Vertical Theme Selector Stack */}
-                  <div className="flex flex-col gap-2 w-full mt-1">
-                    {STORY_THEMES.map((theme, idx) => {
-                      const isActive = activeIndex === idx;
-                      return (
-                        <button
-                          key={theme.id}
-                          id={`btn-theme-${idx + 1}`}
-                          onClick={() => handleSelectTheme(idx)}
-                          className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-200 cursor-pointer border ${
-                            isActive
-                              ? 'bg-[#ea6955] text-slate-950 font-bold border-[#ea6955] shadow-md shadow-[#ea6955]/15'
-                              : 'bg-[#0e1726]/80 hover:bg-[#152338] text-slate-300 border-slate-800/80 hover:border-slate-700 hover:text-white font-medium'
-                          }`}
-                        >
-                          <span className="text-xs sm:text-sm leading-snug block">
-                            {theme.title}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Right Side: Active Theme Scene Content */}
-                <div
-                  id="active-theme-scroll-pane"
-                  ref={rightContentRef}
-                  className="lg:col-span-8 xl:col-span-8.5 w-full min-w-0 lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:pr-3.5 [scrollbar-width:thin] [scrollbar-color:rgba(100,116,139,0.35)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-700/60 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-500/80"
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeTheme.id}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.25 }}
-                      className="flex flex-col justify-between h-full"
+                  return (
+                    <button
+                      key={theme.id}
+                      id={`btn-theme-${idx + 1}`}
+                      onClick={() => handleSelectTheme(idx)}
+                      className={`w-full text-left px-3.5 py-3 rounded-xl transition-all duration-200 border relative select-none cursor-pointer ${
+                        isActive
+                          ? 'bg-[#ea6955] text-slate-950 font-bold border-[#ea6955] shadow-md shadow-[#ea6955]/15'
+                          : 'bg-[#0e1726]/80 hover:bg-[#152338] text-slate-300 border-slate-800/80 hover:border-slate-700 hover:text-white font-medium'
+                      }`}
                     >
-                      <div>
-                        {/* Headline */}
-                        <h3 className="font-serif text-2xl sm:text-3xl lg:text-[38px] font-bold text-slate-100 tracking-tight leading-[1.18]">
-                          {activeTheme.headline}
-                        </h3>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[18px] sm:text-[20px] leading-snug block font-serif">
+                          {theme.title}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-                        {/* Quote */}
-                        <p className="font-serif italic text-slate-300/90 text-sm sm:text-base lg:text-lg font-normal leading-relaxed mt-3 max-w-4xl">
-                          {activeTheme.quote}
-                        </p>
+            {/* Right Column: All 4 Thematic Horizons rendered naturally in page stream */}
+            <div
+              id="active-theme-scroll-pane"
+              className="w-full min-w-0 flex flex-col space-y-20 sm:space-y-28"
+            >
+              {STORY_THEMES.map((theme, idx) => (
+                <div
+                  key={theme.id}
+                  id={`theme-horizon-${idx + 1}`}
+                  data-theme-index={idx}
+                  className="theme-horizon-block w-full flex flex-col space-y-6 sm:space-y-8 pt-2 pb-14 sm:pb-20 border-b border-slate-800/60 last:border-b-0"
+                >
+                  {/* Horizon Header */}
+                  <div className="flex flex-col space-y-3 max-w-4xl">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-[#ff7e67] font-semibold px-2.5 py-1 rounded-md bg-[#ff7e67]/10 border border-[#ff7e67]/20">
+                        {theme.themeNumber} • {theme.category}
+                      </span>
+                    </div>
+
+                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[52px] font-bold text-slate-100 tracking-tight leading-[1.12]">
+                      {theme.headline}
+                    </h3>
+
+                    <p className="font-serif italic text-slate-300/90 text-lg sm:text-xl lg:text-[22px] font-normal leading-relaxed">
+                      {theme.quote}
+                    </p>
+                  </div>
+
+                  {/* Theme 1 Specific: Eight Systems Architecture */}
+                  {theme.id === 'polysolutions' && (
+                    <div className="flex flex-col space-y-4 w-full">
+                      <span className="text-xs font-mono text-[#ff7e67] uppercase tracking-wider font-semibold">
+                        Operationalized Across 8 Interconnected Realities
+                      </span>
+                      <EightSystemsSection />
+                    </div>
+                  )}
+
+                  {/* Theme 2 Specific: Translation Framework & Projects */}
+                  {theme.id === 'translation' && (
+                    <div className="w-full space-y-8">
+                      <MethodologyTranslationSection embedded />
+                      <ProjectsSection embedded />
+                    </div>
+                  )}
+
+                  {/* Theme 3 Specific: Thinking that Shifts (Publications & Four Fronts) */}
+                  {theme.id === 'thinking' && (
+                    <div className="w-full space-y-8">
+                      <FourFrontsSection embedded />
+                    </div>
+                  )}
+
+                  {/* Theme 4 Specific: Multilateral Platform, Ecosystem & Testimonials */}
+                  {theme.id === 'convener' && (
+                    <div className="w-full space-y-10">
+                      <ConveningSection embedded />
+
+                      <div className="w-full border-t border-slate-800/80 pt-8">
+                        <TrustMatrixMarquee embedded />
                       </div>
 
-                      {/* Divider Line */}
-                      <div className="w-full border-t border-slate-800/80 my-6" />
-
-                      {/* 3 Pillars / Cards (shown for themes with cards, omitted in Themes 02, 03 & 04) */}
-                      {activeTheme.id !== 'translation' && activeTheme.id !== 'thinking' && activeTheme.id !== 'convener' && activeTheme.cards && activeTheme.cards.length > 0 && (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 lg:gap-4 items-stretch">
-                          {activeTheme.cards.map((card, cIdx) => (
-                            <div
-                              key={cIdx}
-                              className="bg-[#0e1828]/70 hover:bg-[#111e32]/80 border border-slate-800/80 rounded-xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-start group"
-                            >
-                              <span
-                                className={`font-mono text-xs font-bold tracking-wider ${card.tagColor} mb-2 block`}
-                              >
-                                {card.tag}
-                              </span>
-                              <h4 className="font-sans text-slate-100 font-bold text-sm sm:text-base mb-1.5 leading-snug group-hover:text-white">
-                                {card.title}
-                              </h4>
-                              <p className="text-slate-400 text-xs leading-relaxed font-light">
-                                {card.description}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Theme 1 Specific: Eight Systems Architecture */}
-                      {activeTheme.id === 'polysolutions' && (
-                        <div className="mt-8 pt-8 border-t border-slate-800/80 flex flex-col space-y-4">
-                          <span className="text-xs font-mono text-[#ff7e67] uppercase tracking-wider font-semibold">
-                            Operationalized Across 8 Interconnected Realities
-                          </span>
-                          <EightSystemsSection />
-                        </div>
-                      )}
-
-                      {/* Theme 2 Specific: Translation, Not Theory Implementation Framework & Action Research Projects */}
-                      {activeTheme.id === 'translation' && (
-                        <div className="w-full space-y-6">
-                          <MethodologyTranslationSection embedded />
-                          <ProjectsSection embedded />
-                        </div>
-                      )}
-
-                      {/* Theme 3 Specific: Thinking that Shifts - Institutional Deck & Publications */}
-                      {activeTheme.id === 'thinking' && (
-                        <div className="w-full space-y-6">
-                          <FourFrontsSection embedded />
-                        </div>
-                      )}
-
-                      {/* Theme 4 Specific: A Convener Between Worlds - Orbital Architecture */}
-                      {activeTheme.id === 'convener' && (
-                        <div className="w-full space-y-6">
-                          <ConveningSection embedded />
-                        </div>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
+                      <div className="w-full border-t border-slate-800/80 pt-8">
+                        <TestimonialCard embedded />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

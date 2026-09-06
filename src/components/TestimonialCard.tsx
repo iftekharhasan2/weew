@@ -6,10 +6,12 @@ import { TestimonialItem } from '../types';
 
 interface TestimonialCardProps {
   testimonials?: TestimonialItem[];
+  embedded?: boolean;
 }
 
 export const TestimonialCard: React.FC<TestimonialCardProps> = ({
-  testimonials: propsTestimonials
+  testimonials: propsTestimonials,
+  embedded = false,
 }) => {
   const { data } = useCMS();
   const sectionData = data.testimonialsSection || defaultTestimonialsSection;
@@ -25,23 +27,32 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
   };
 
   return (
-    <section id="testimonials" className="w-full py-24 sm:py-28 lg:py-32 bg-[var(--bg)] text-[var(--white)] overflow-hidden relative transition-colors duration-250">
+    <section
+      id="testimonials"
+      className={`w-full text-[var(--white)] overflow-hidden relative transition-colors duration-250 ${
+        embedded
+          ? 'py-6 sm:py-8 bg-transparent'
+          : 'py-24 sm:py-28 lg:py-32 bg-[var(--bg)]'
+      }`}
+    >
       {/* Background glow effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[380px] bg-[#ff7e67]/5 blur-[120px] rounded-full pointer-events-none" />
+      {!embedded && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[380px] bg-[#ff7e67]/5 blur-[120px] rounded-full pointer-events-none" />
+      )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className={`${embedded ? 'w-full' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'} relative z-10`}>
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-8 sm:mb-12 relative z-20">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-6 sm:mb-8 relative z-20">
           <div>
             <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-[#ff7e67] uppercase">
               {sectionData.sectionBadge || "INSTITUTIONAL ENDORSEMENTS"}
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-100 tracking-tight">
+          <h2 className={`${embedded ? 'text-2xl sm:text-3xl' : 'text-3xl sm:text-4xl lg:text-5xl'} font-extrabold text-slate-100 tracking-tight`}>
             {sectionData.sectionTitle || "Trusted by Global Leaders & Development Partners"}
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl mx-auto">
             {sectionData.sectionSubtitle || "See how our institutional advisory and systemic transformation strategies create lasting impact."}
           </p>
         </div>

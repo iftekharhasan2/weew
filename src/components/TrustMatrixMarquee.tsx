@@ -1,16 +1,22 @@
 import React from 'react';
 import { useCMS, defaultTrustMatrix } from '../context/CMSContext';
 
-export const TrustMatrixMarquee: React.FC = () => {
+export interface TrustMatrixMarqueeProps {
+  embedded?: boolean;
+}
+
+export const TrustMatrixMarquee: React.FC<TrustMatrixMarqueeProps> = ({ embedded = false }) => {
   const { data } = useCMS();
   const trustMatrix = data.trustMatrix || defaultTrustMatrix;
   const brands = trustMatrix.brands && trustMatrix.brands.length > 0 ? trustMatrix.brands : defaultTrustMatrix.brands;
   const speed = trustMatrix.scrollSpeed || 35;
 
   return (
-    <div className="relative w-full overflow-hidden bg-[var(--bg)] py-12 select-none transition-colors duration-250 font-sans">
+    <div className={`relative w-full overflow-hidden select-none transition-colors duration-250 font-sans ${
+      embedded ? 'py-4 bg-transparent' : 'bg-[var(--bg)] py-12'
+    }`}>
       {/* Section Header */}
-      <div className="text-center max-w-2xl mx-auto px-4 mb-8 space-y-2">
+      <div className="text-center max-w-2xl mx-auto px-4 mb-6 space-y-2">
         <div>
           <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-[#ff7e67] uppercase">
             {trustMatrix.sectionBadge || "STRATEGIC PARTNERS & CLIENT ECOSYSTEM"}
@@ -22,8 +28,12 @@ export const TrustMatrixMarquee: React.FC = () => {
       </div>
 
       {/* Edge Fade Overlay Masks */}
-      <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-[14%] bg-gradient-to-r from-[#050a12] to-transparent" />
-      <div className="pointer-events-none absolute top-0 bottom-0 right-0 z-10 w-[14%] bg-gradient-to-l from-[#050a12] to-transparent" />
+      <div className={`pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-[14%] bg-gradient-to-r ${
+        embedded ? 'from-[#0a121e]' : 'from-[#050a12]'
+      } to-transparent`} />
+      <div className={`pointer-events-none absolute top-0 bottom-0 right-0 z-10 w-[14%] bg-gradient-to-l ${
+        embedded ? 'from-[#0a121e]' : 'from-[#050a12]'
+      } to-transparent`} />
 
       {/* Marquee Track */}
       <div className="flex w-full overflow-hidden">

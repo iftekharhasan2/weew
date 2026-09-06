@@ -81,6 +81,13 @@
     border-left: none !important;
     border-right: none !important;
   }
+
+  .container-fluid {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar,

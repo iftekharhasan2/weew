@@ -73,6 +73,27 @@ export const EightSystemsHero: React.FC<EightSystemsHeroProps> = ({
             : '0 2px 8px rgba(0,0,0,0.2)',
         }}
       >
+        {/* System Pill Image */}
+        {system.imageUrl && (
+          <div className="relative w-full h-32 sm:h-36 rounded-xl overflow-hidden mb-3.5 bg-slate-900/90 shrink-0 border border-slate-800/70 group-hover:border-slate-700 transition-colors">
+            <img
+              src={system.imageUrl}
+              alt={system.name}
+              referrerPolicy="no-referrer"
+              loading="lazy"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#081324] via-[#081324]/30 to-black/20" />
+            <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: system.color, boxShadow: `0 0 6px ${system.color}` }}
+              />
+              <span>{system.shortName || system.name}</span>
+            </div>
+          </div>
+        )}
+
         {/* Card Title */}
         <h4 className={`font-sans text-sm sm:text-base font-bold leading-snug tracking-tight ${
           isSelected
@@ -110,25 +131,13 @@ export const EightSystemsHero: React.FC<EightSystemsHeroProps> = ({
       />
 
       {/* Main Section Header */}
-      <div className="space-y-6 sm:space-y-8 pt-[20px] pb-[28px] px-0 mx-0">
-        {/* 8 Systems Pills Grid / Equalized Grid Layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
-            {systems.map(renderPill)}
-          </div>
-        </motion.div>
-
-        {/* Exact Typography Clone */}
+      <div className="space-y-6 sm:space-y-8 pt-2 pb-6 px-0 mx-0">
+        {/* Exact Typography Title - Placed First */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-1 w-[710px] pl-[29px] pt-[20px] pb-[11px] max-w-full"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-1 w-[710px] pl-1 sm:pl-2 pt-1 pb-1 max-w-full"
         >
           <h1
             className={`${getFontClass()} text-4xl sm:text-5xl md:text-6xl lg:text-[70px] leading-[1.08] sm:leading-[1.06] tracking-[-0.025em] text-slate-100 font-normal`}
@@ -136,6 +145,18 @@ export const EightSystemsHero: React.FC<EightSystemsHeroProps> = ({
             <span className="block">Eight systems. One</span>
             <span className="block text-slate-300">overlapping reality.</span>
           </h1>
+        </motion.div>
+
+        {/* 8 Systems Pills Grid / Buttons - Placed After Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
+            {systems.map(renderPill)}
+          </div>
         </motion.div>
       </div>
     </div>

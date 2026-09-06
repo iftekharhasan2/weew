@@ -9,8 +9,6 @@ import { Ip3TrailerSection } from './components/Ip3TrailerSection';
 import { SystemsArchitectureSection } from './components/SystemsArchitectureSection';
 import { PolicyShowcaseSection } from './components/PolicyShowcaseSection';
 import { Ip3PolicySection } from './components/Ip3PolicySection';
-import { TrustMatrixMarquee } from './components/TrustMatrixMarquee';
-import { TestimonialCard } from './components/TestimonialCard';
 import { ExecutiveCard } from './components/ExecutiveCard';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -146,12 +144,6 @@ function AppContent() {
           <Ip3PolicySection
             onNavigateFocus={(sectionId) => handleNavigate('focus', sectionId)}
           />
-
-          {/* Trust Matrix Infinite Marquee Carousel */}
-          <TrustMatrixMarquee />
-
-          {/* Institutional Testimonials Coverflow Section */}
-          <TestimonialCard />
 
           {/* Executive Briefing / Strategic Leadership Section */}
           <ExecutiveCard

@@ -427,6 +427,7 @@ export interface SystemItem {
   interventions?: string[];
   metrics: SystemMetric[];
   overlaps: SystemOverlap[];
+  imageUrl?: string;
 }
 
 export interface OrbitRing {
